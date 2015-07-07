@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Kinosaal;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
@@ -24,7 +25,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.barzahlung.BarzahlungsWe
  */
 public class PlatzVerkaufsWerkzeug
 {
-    private int _ausgewaehlterGesamtbetrag;
+    private Geldbetrag _ausgewaehlterGesamtbetrag;
     // Die aktuelle Vorstellung, deren Plätze angezeigt werden. Kann null sein.
     private Vorstellung _vorstellung;
 
@@ -123,19 +124,21 @@ public class PlatzVerkaufsWerkzeug
     private void aktualisierePreisanzeige(Set<Platz> plaetze)
     {
     	//TODO Blatt 9 Hier auf Geldbetrag ändern (getForm.String verwenden)
-        _ausgewaehlterGesamtbetrag = 0;
+        _ausgewaehlterGesamtbetrag = Geldbetrag.erzeugeGeldbetrag(0);
         if (istVerkaufenMoeglich(plaetze))
         {
+            
             int preis = _vorstellung.getPreisFuerPlaetze(plaetze);
+            _ausgewaehlterGesamtbetrag = Geldbetrag.erzeugeGeldbetrag(preis);
             _ui.getPreisLabel().setText(
-                    "Gesamtpreis: " + preis + " Eurocent");
-            _ausgewaehlterGesamtbetrag = preis;
+                    "Gesamtpreis: " + _ausgewaehlterGesamtbetrag.getFormatiertenString() + " Eurocent");
         }
         else if (istStornierenMoeglich(plaetze))
         {
             int preis = _vorstellung.getPreisFuerPlaetze(plaetze);
+            Geldbetrag stornobetrag = Geldbetrag.erzeugeGeldbetrag(preis);
             _ui.getPreisLabel().setText(
-                    "Gesamtstorno: " + preis + " Eurocent");
+                    "Gesamtstorno: " + stornobetrag.getFormatiertenString() + " Eurocent");
         }
         else if (!plaetze.isEmpty())
         {
@@ -145,7 +148,7 @@ public class PlatzVerkaufsWerkzeug
         else
         {
             _ui.getPreisLabel().setText(
-                    "Gesamtpreis: 0 Eurocent");
+                    "Gesamtpreis:" + Geldbetrag.erzeugeGeldbetrag(0).getFormatiertenString() + "Eurocent");
         }
     }
 

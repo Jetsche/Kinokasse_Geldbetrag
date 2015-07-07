@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.ObservableSubwerkzeug;
 
 /**
@@ -56,9 +57,9 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * @param preis der einzunehmende Gelbetrag
      */
     //TODO Blatt 9: Führe GELDBETRAG ein
-    public void fuehreBarzahlungDurch(int preis)
+    public void fuehreBarzahlungDurch(Geldbetrag preis)
     {
-        _preis = preis;
+        _preis = (preis.getEuroAnteil() * 100) + preis.getCentAnteil();
         _ausreichenderGeldbetrag = false;
         _barzahlungErfolgreich = false;
         setzeUIAnfangsstatus();
