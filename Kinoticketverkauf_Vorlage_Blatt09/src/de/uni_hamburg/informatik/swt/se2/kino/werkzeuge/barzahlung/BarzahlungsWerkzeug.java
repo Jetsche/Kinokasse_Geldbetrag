@@ -170,6 +170,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         }
         try
         {
+            //TODO Falls Eingabe auch als Geldbetrag soll, dann hier ändern
             int eingabeBetrag = Integer.parseInt(eingabePreis);
             int eurocentpreis = (_preis.getEuroAnteil() * 100) + _preis.getCentAnteil();
             _ausreichenderGeldbetrag = (eingabeBetrag >= eurocentpreis);
