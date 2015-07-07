@@ -131,14 +131,14 @@ public class PlatzVerkaufsWerkzeug
             int preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             _ausgewaehlterGesamtbetrag = Geldbetrag.erzeugeGeldbetrag(preis);
             _ui.getPreisLabel().setText(
-                    "Gesamtpreis: " + _ausgewaehlterGesamtbetrag.getFormatiertenString() + " Eurocent");
+                    "Gesamtpreis: " + _ausgewaehlterGesamtbetrag.getFormatiertenString() + " Euro");
         }
         else if (istStornierenMoeglich(plaetze))
         {
             int preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             Geldbetrag stornobetrag = Geldbetrag.erzeugeGeldbetrag(preis);
             _ui.getPreisLabel().setText(
-                    "Gesamtstorno: " + stornobetrag.getFormatiertenString() + " Eurocent");
+                    "Gesamtstorno: " + stornobetrag.getFormatiertenString() + " Euro");
         }
         else if (!plaetze.isEmpty())
         {
@@ -148,7 +148,7 @@ public class PlatzVerkaufsWerkzeug
         else
         {
             _ui.getPreisLabel().setText(
-                    "Gesamtpreis:" + Geldbetrag.erzeugeGeldbetrag(0).getFormatiertenString() + "Eurocent");
+                    "Gesamtpreis:" + Geldbetrag.erzeugeGeldbetrag(0).getFormatiertenString() + "Euro");
         }
     }
 
