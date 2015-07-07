@@ -35,7 +35,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
 {
 
     private BarzahlungsWerkzeugUI _ui;
-    private int _preis;
+    private Geldbetrag _preis;
     private boolean _barzahlungErfolgreich;
     private boolean _ausreichenderGeldbetrag;
 
@@ -59,7 +59,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
     //TODO Blatt 9: Führe GELDBETRAG ein
     public void fuehreBarzahlungDurch(Geldbetrag preis)
     {
-        _preis = (preis.getEuroAnteil() * 100) + preis.getCentAnteil();
+        _preis = preis;
         _ausreichenderGeldbetrag = false;
         _barzahlungErfolgreich = false;
         setzeUIAnfangsstatus();
@@ -171,9 +171,10 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         try
         {
             int eingabeBetrag = Integer.parseInt(eingabePreis);
-            _ausreichenderGeldbetrag = (eingabeBetrag >= _preis);
-            int differenz = Math.abs(eingabeBetrag - _preis);
-            zeigeRestbetrag(differenz);
+            int eurocentpreis = (_preis.getEuroAnteil() * 100) + _preis.getCentAnteil();
+            _ausreichenderGeldbetrag = (eingabeBetrag >= eurocentpreis);
+            int differenz = Math.abs(eingabeBetrag - eurocentpreis);
+            zeigeRestbetrag(Geldbetrag.erzeugeGeldbetrag(differenz));
         }
         catch (NumberFormatException ignore)
         {
@@ -248,9 +249,9 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param differenz ein eingegebener Betrag
      */
-    private void zeigeRestbetrag(int differenz)
+    private void zeigeRestbetrag(Geldbetrag differenz)
     {
-        _ui.getRestbetragTextfield().setText(differenz + " Eurocent");
+        _ui.getRestbetragTextfield().setText(differenz.getFormatiertenString() + " Eurocent");
     }
 
     /**
