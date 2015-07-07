@@ -1,6 +1,6 @@
 package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -35,7 +35,7 @@ public class GeldbetragTest {
 		Geldbetrag betrag1 = Geldbetrag.erzeugeGeldbetrag(50);
 		Geldbetrag betrag2 = Geldbetrag.erzeugeGeldbetrag(152);
 		Geldbetrag addbetrag = Geldbetrag.addiere(betrag1, betrag2);
-		assertEquals("2,02", addbetrag.getformatiertenString());
+		assertEquals("2,02", addbetrag.getFormatiertenString());
 	}
 
 	@Test
@@ -43,15 +43,15 @@ public class GeldbetragTest {
 		Geldbetrag betrag1 = Geldbetrag.erzeugeGeldbetrag(50);
 		Geldbetrag betrag2 = Geldbetrag.erzeugeGeldbetrag(152);
 		Geldbetrag subbetrag = Geldbetrag.subtrahiere(betrag2, betrag1);
-		assertEquals("1,02", subbetrag.getformatiertenString());
+		assertEquals("1,02", subbetrag.getFormatiertenString());
 	}
 
 	@Test
 	public void testSkalar()
 	{
 		Geldbetrag betrag = Geldbetrag.erzeugeGeldbetrag(75);
-		Geldbetrag skalarbetrag = Geldbetrag.skalar(betrag, 3)
-		assertEquals("2,25", skalarbetrag.getformatiertenString());
+		Geldbetrag skalarbetrag = Geldbetrag.multipliziere(betrag, 3);
+		assertEquals("2,25", skalarbetrag.getFormatiertenString());
 	}
 	
 	@Test
@@ -59,7 +59,7 @@ public class GeldbetragTest {
 	{
 		Geldbetrag betrag1 = Geldbetrag.erzeugeGeldbetrag(100);
 		Geldbetrag betrag2 = Geldbetrag.erzeugeGeldbetrag(100);
-		assertTrue(betrag1.HashCode() == betrag2.HashCode());
+		assertTrue(betrag1.hashCode() == betrag2.hashCode());
 	}
 	
 	@Test
@@ -68,12 +68,12 @@ public class GeldbetragTest {
 		Geldbetrag betrag1 = Geldbetrag.erzeugeGeldbetrag(1);
 		Geldbetrag betrag2 = Geldbetrag.erzeugeGeldbetrag(Integer.MAX_VALUE);
 		Geldbetrag addbetrag = Geldbetrag.addiere(betrag1, betrag2);
-		assertEquals("Err", subbetrag.getformatiertenString());
+		assertEquals("Err", addbetrag.getFormatiertenString());
 		
-		Geldbetrag betrag1 = Geldbetrag.erzeugeGeldbetrag(1);
-		Geldbetrag betrag2 = Geldbetrag.erzeugeGeldbetrag(Integer.MIN_VALUE);
-		Geldbetrag subbetrag = Geldbetrag.subtrahiere(betrag2, betrag1);
-		assertEquals("Err", subbetrag.getformatiertenString());
+		Geldbetrag betrag3 = Geldbetrag.erzeugeGeldbetrag(1);
+		Geldbetrag betrag4 = Geldbetrag.erzeugeGeldbetrag(Integer.MIN_VALUE);
+		Geldbetrag subbetrag = Geldbetrag.subtrahiere(betrag3, betrag4);
+		assertEquals("Err", subbetrag.getFormatiertenString());
 
 	}
 }
