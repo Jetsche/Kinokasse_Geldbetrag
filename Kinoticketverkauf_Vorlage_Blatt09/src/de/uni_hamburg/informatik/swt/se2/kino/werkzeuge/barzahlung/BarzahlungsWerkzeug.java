@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.regex.Pattern;
 
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.ObservableSubwerkzeug;
@@ -173,9 +174,18 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
             //TODO Falls Eingabe auch als Geldbetrag soll, dann hier ändern
             int eingabeBetrag = Integer.parseInt(eingabePreis);
             int eurocentpreis = (_preis.getEuroAnteil() * 100) + _preis.getCentAnteil();
+            
+           if(!Pattern.matches( "^\\d{0,6}$", eingabePreis))
+           {
+           _ui.getRestbetragTextfield().setText("Betrag zu groß!");
+           _ausreichenderGeldbetrag = false;
+           }
+           else
+           {
             _ausreichenderGeldbetrag = (eingabeBetrag >= eurocentpreis);
             int differenz = Math.abs(eingabeBetrag - eurocentpreis);
             zeigeRestbetrag(Geldbetrag.erzeugeGeldbetrag(differenz));
+           }
         }
         catch (NumberFormatException ignore)
         {

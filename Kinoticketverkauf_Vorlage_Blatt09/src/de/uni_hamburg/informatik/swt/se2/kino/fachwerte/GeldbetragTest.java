@@ -36,6 +36,11 @@ public class GeldbetragTest {
 		Geldbetrag betrag2 = Geldbetrag.erzeugeGeldbetrag(152);
 		Geldbetrag addbetrag = Geldbetrag.addiere(betrag1, betrag2);
 		assertEquals("2,02", addbetrag.getFormatiertenString());
+		
+		Geldbetrag betrag3 = Geldbetrag.erzeugeGeldbetrag(5017);
+        Geldbetrag betrag4 = Geldbetrag.erzeugeGeldbetrag(1526);
+        Geldbetrag addbetrag2 = Geldbetrag.addiere(betrag3, betrag4);
+        assertEquals("65,43", addbetrag2.getFormatiertenString());
 	}
 
 	@Test
@@ -62,18 +67,4 @@ public class GeldbetragTest {
 		assertTrue(betrag1.hashCode() == betrag2.hashCode());
 	}
 	
-	@Test
-	public void grenzGeldbetrag()
-	{
-		Geldbetrag betrag1 = Geldbetrag.erzeugeGeldbetrag(1);
-		Geldbetrag betrag2 = Geldbetrag.erzeugeGeldbetrag(Integer.MAX_VALUE);
-		Geldbetrag addbetrag = Geldbetrag.addiere(betrag1, betrag2);
-		assertEquals("Err", addbetrag.getFormatiertenString());
-		
-		Geldbetrag betrag3 = Geldbetrag.erzeugeGeldbetrag(1);
-		Geldbetrag betrag4 = Geldbetrag.erzeugeGeldbetrag(Integer.MIN_VALUE);
-		Geldbetrag subbetrag = Geldbetrag.subtrahiere(betrag3, betrag4);
-		assertEquals("Err", subbetrag.getFormatiertenString());
-
-	}
 }

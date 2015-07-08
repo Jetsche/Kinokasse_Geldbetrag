@@ -15,7 +15,7 @@ public final class Geldbetrag
      */
     private Geldbetrag(int eurocent)
     {
-        assert eurocent >= 0 : "Vorbedingung verletzt: eurocent >= 0";
+        //assert eurocent >= 0 : "Vorbedingung verletzt: eurocent >= 0";
         _euroAnteil = eurocent / 100;
         _centAnteil = eurocent % 100;
     }
@@ -108,6 +108,12 @@ public final class Geldbetrag
         return getFormatiertenString();
     }
     
+    /**
+     * Addiert 2 Geldbeträge und gibt einen neuen Geldbetrag zurück
+     * @param betrag1 Der erste Geldbetrag
+     * @param betrag2 Der zweite Geldbetrag
+     * @return Der neue berechnete Geldbetrag
+     */
     public static Geldbetrag addiere(Geldbetrag betrag1, Geldbetrag betrag2)
     {
         int euro = betrag1.getEuroAnteil() + betrag2.getEuroAnteil();
@@ -118,14 +124,21 @@ public final class Geldbetrag
             cent = cent % 100;
         }
         
-        int eurocent = (euro*100) + cent;
+        int eurocent =(euro*100) + cent;
         return erzeugeGeldbetrag(eurocent);
     }
     
+    /**
+     * Subtrahiert zwei Geldbeträge und gibt einen neuen Geldbetrag zurück
+     * @param betrag1 Der erste Geldbetrag
+     * @param betrag2 Der Geldbetrag, der vom ersten subtrahiert wird
+     * @return Der neue berechnete Geldbetrag
+     */
     public static Geldbetrag subtrahiere(Geldbetrag betrag1, Geldbetrag betrag2)
     {
         int euro = betrag1.getEuroAnteil() - betrag2.getEuroAnteil();
         int cent = betrag1.getCentAnteil() - betrag2.getCentAnteil();
+       
         if (cent < 0)
         {
             euro -= 1;
@@ -136,13 +149,20 @@ public final class Geldbetrag
         return erzeugeGeldbetrag(eurocent);
     }
     
+    /**
+     * Multipliziert einen Geldbetrag mit einem Skalar und gibt einen neuen Geldbetrag zurück
+     * @param betrag1 Der Geldbetrag, der multipliziert werden soll
+     * @param skalar Skalar, mit dem multipliziert wird
+     * @return Der neue berechnete Geldbetrag
+     */
     public static Geldbetrag multipliziere(Geldbetrag betrag1, int skalar)
     {
         int euro = betrag1.getEuroAnteil() * skalar;
         int cent = betrag1.getCentAnteil() * skalar;
+
         if (cent >= 100)
         {
-            euro = cent / 100;
+            euro += cent / 100;
             cent = cent % 100;
         }
         int eurocent = (euro*100) + cent;
