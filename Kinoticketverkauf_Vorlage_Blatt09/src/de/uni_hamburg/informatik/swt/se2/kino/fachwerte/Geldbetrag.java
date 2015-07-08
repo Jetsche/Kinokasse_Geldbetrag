@@ -15,11 +15,11 @@ public final class Geldbetrag
      */
     private Geldbetrag(int eurocent)
     {
-        //assert eurocent >= 0 : "Vorbedingung verletzt: eurocent >= 0";
+        assert eurocent >= 0 : "Vorbedingung verletzt: eurocent >= 0";
         _euroAnteil = eurocent / 100;
         _centAnteil = eurocent % 100;
     }
-    
+
     /**
      * Statische Methode zum erzeugen eines Geldbetrags 
      * @param eurocent Der Betrag in ganzen Euro-Cent
@@ -75,6 +75,10 @@ public final class Geldbetrag
         return result;
     }
 
+    /**
+     * Berechnet den HashCode
+     */
+
     @Override
     public int hashCode()
     {
@@ -85,6 +89,9 @@ public final class Geldbetrag
         return result;
     }
 
+    /**Überschreibt die Standert Equals Methode
+     *mit unserer
+     */
     @Override
     public boolean equals(Object obj)
     {
@@ -107,7 +114,7 @@ public final class Geldbetrag
     {
         return getFormatiertenString();
     }
-    
+
     /**
      * Addiert 2 Geldbeträge und gibt einen neuen Geldbetrag zurück
      * @param betrag1 Der erste Geldbetrag
@@ -123,11 +130,11 @@ public final class Geldbetrag
             euro += 1;
             cent = cent % 100;
         }
-        
-        int eurocent =(euro*100) + cent;
+
+        int eurocent = (euro * 100) + cent;
         return erzeugeGeldbetrag(eurocent);
     }
-    
+
     /**
      * Subtrahiert zwei Geldbeträge und gibt einen neuen Geldbetrag zurück
      * @param betrag1 Der erste Geldbetrag
@@ -138,17 +145,17 @@ public final class Geldbetrag
     {
         int euro = betrag1.getEuroAnteil() - betrag2.getEuroAnteil();
         int cent = betrag1.getCentAnteil() - betrag2.getCentAnteil();
-       
+
         if (cent < 0)
         {
             euro -= 1;
             cent = 100 + cent;
         }
-        
-        int eurocent = (euro*100) + cent;
+
+        int eurocent = (euro * 100) + cent;
         return erzeugeGeldbetrag(eurocent);
     }
-    
+
     /**
      * Multipliziert einen Geldbetrag mit einem Skalar und gibt einen neuen Geldbetrag zurück
      * @param betrag1 Der Geldbetrag, der multipliziert werden soll
@@ -165,7 +172,7 @@ public final class Geldbetrag
             euro += cent / 100;
             cent = cent % 100;
         }
-        int eurocent = (euro*100) + cent;
+        int eurocent = (euro * 100) + cent;
         return erzeugeGeldbetrag(eurocent);
     }
 
